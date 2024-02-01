@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AngularStart">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/maincontroller.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>BNW</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo.jpg" type="image/icon type">
+    <style>
+        body {
+            padding: 20px
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Péemvé.js</h1>
+    <div ng-controller="MainController">
+        <h2>Szia! Itt most kiválaszthatod az autód és megnézheted milyen csajt kapsz hozzá </h2>
+
+        <h2>{{szoveg}}</h2>
+
+        <h3>Szöveg: </h3>
+        <input type="text" ng-model="szoveg" style="width: 300px;">
+
+        <h2>Automatikus lista</h2>
+
+        <ul>
+            <li ng-repeat="kocsi in kocsik">
+                <span><b>{{kocsi.nev }}</b> ({{kocsi.evjarat}}éves)</span>
+            </li>
+        </ul>
+
+        <hr>
+        <h2>Automatikusan generált legördülő lista</h2>
+        <b>Név:</b>
+        <select ng-model="valasztottkocsi" ng-options="kocsi.nev for kocsi in kocsik"
+            onchange="$('#tehat').hide();$('#histruelove').val('');"></select>
+
+        <b>Ezeket a csajokat kedvelték:</b>
+        <select ng-model="valasztottCsaj" onchange="$('#tehat').show();">
+            <option ng-repeat="csaj in valasztottkocsi.csajok">{{csaj}}</option>
+        </select>
+        <b>Szerelme:</b>
+        <input type="text" ng-model="valasztottCsaj" id="histruelove">
+
+        <div id="tehat" style="display: none;">
+            <p>Tehát, ha <b>{{valasztottkocsi.nev}}</b> -od van, akkor a lány akit érdemelsz: <b>{{valasztottCsaj}} <img src="{{valasztottkocsi.lanykep}}"></b>.</p>
+        </div>
+<br>
+<br>
+<br>
+    </div>
+</body>
+
+</html>
